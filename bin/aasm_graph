@@ -4,23 +4,21 @@ require "optparse"
 require_relative "../lib/aasm/graph/cli"
 
 options = {
-  class_names: []
+    class_names: [],
+    class_files: [],
+    includes: []
 }
 
 optparse = OptionParser.new do |opts|
   opts.banner = "Usage: aasm_graph [options] ClassName1 ClassName2 ..."
-  opts.on( '-I', '--include PATH', 'Include paths in the load path' ) do |path|
-    paths = path.split(':')
-     paths.each do |path|
-      $:.unshift(path)
-    end
-  end
 
-  opts.on('-R', '--require FILE', 'Require files') do |path|
-    require path
+  opts.on('-C', '--class FILE', "The a file where the class (or classes) can be found.") do | class_file |
+    options[:class_files] << class_file
   end
 end
+
 optparse.parse!
+
 ARGV.each do |name|
   options[:class_names] << name
 end
