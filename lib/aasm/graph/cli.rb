@@ -4,7 +4,7 @@ module AASM
 
       def initialize(options)
         @class_names = Array(options[:class_names])
-        @output_path = options[:output_path]
+        @output_path = options[:output_path] || __dir__
       end
 
       def run
